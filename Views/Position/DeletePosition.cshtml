@@ -1,0 +1,52 @@
+﻿@model Position
+
+<div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="deletelModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h3 class="modal-title" id="deletelModalLabel">Xóa phòng ban</h3>
+            </div>
+            <div class="modal-body text-center">
+                <div id="deleteMessage" class="mt-3"></div>
+                <form id="deleteForm">
+                    <input type="hidden" asp-for="Id" id="deleteId" />
+                    <p>Bạn có muốn xóa chức vụ này không?</p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnDelete" data-dismiss="modal">Xóa</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openDeleteModal(id) {
+        $('#deleteModal #deleteId').val(id);
+        $('#deleteModal').modal('show');
+    }
+
+    $('#btnDelete').click(function() {
+        var id = $('#deleteModal #deleteId').val();
+        console.log(id);
+        $.ajax({
+            url: '/Position/Delete/' + id,
+            type: 'POST',
+            data: {},
+            success: function (res) {
+                if (res.success) {
+                    $('#deleteModal').modal('hide');
+                    location.reload();
+                }
+                else {
+                    $('#deleteMessage').html('<div class="alert alert-danger">' + res.message + '</div>');
+                }
+            },
+            error: function (res) {
+                $('#deleteMessage').html('<div class="alert alert-danger">' + 'Đã xảy ra lỗi' + '</div>');
+                console.log(res);
+            }
+        })
+    })
+</script>

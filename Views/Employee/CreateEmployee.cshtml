@@ -1,0 +1,132 @@
+﻿@model HRM.Data.ViewModels.EmployeeVM
+
+<div class="modal fade" id="createModal" role="dialog" aria-labelledby="createModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h3 class="modal-title" id="createModalLabel">Thêm nhân viên</h3>
+            </div>
+            <div class="modal-body">
+                <div id="createMessage" class="mt-3"></div>
+                <form id="createForm" class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Employee.Code" class="control-label">Mã nhân viên</label>
+                            <input asp-for="Employee.Code" class="form-control" id="Code" />
+                            <span asp-validation-for="Employee.Code" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.Name" class="control-label">Tên nhân viên</label>
+                            <input asp-for="Employee.Name" class="form-control" id="Name" />
+                            <span asp-validation-for="Employee.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.DepartmentId" class="control-label">Phòng ban</label>
+                            <select asp-for="Employee.DepartmentId" class="form-control" asp-items="ViewBag.DepartmentName" id="createDepartmentId">
+                                <option value="">-- Chọn phòng ban --</option>
+                            </select>
+                            <span asp-validation-for="Employee.DepartmentId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.PositionId" class="control-label">Chức vụ</label>
+                            <select asp-for="Employee.PositionId" class="form-control" asp-items="ViewBag.PositionName" id="PositionId">
+                                <option value="">-- Chọn chức vụ --</option>
+                            </select>
+                            <span asp-validation-for="Employee.PositionId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.DateOfBirth" class="control-label">Ngày sinh</label>
+                            <input asp-for="Employee.DateOfBirth" class="form-control" type="date" id="DateOfBirth" />
+                            <span asp-validation-for="Employee.DateOfBirth" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Employee.Gender" class="control-label">Giới tính</label>
+                            <select asp-for="Employee.Gender" class="form-control" id="Gender">
+                                <option value="">-- Chọn giới tính --</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                            <span asp-validation-for="Employee.Gender" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Employee.PhoneNumber" class="control-label">Điện thoại</label>
+                            <input asp-for="Employee.PhoneNumber" class="form-control" id="PhoneNumber" />
+                            <span asp-validation-for="Employee.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.Email" class="control-label">Email</label>
+                            <input asp-for="Employee.Email" class="form-control" id="Email" />
+                            <span asp-validation-for="Employee.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.Address" class="control-label">Quê quán</label>
+                            <input asp-for="Employee.Address" class="form-control" id="Address" />
+                            <span asp-validation-for="Employee.Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.Identifier" class="control-label">CCCD</label>
+                            <input asp-for="Employee.Identifier" class="form-control" id="Identifier" />
+                            <span asp-validation-for="Employee.Identifier" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.CreateBy" class="control-label">Người tạo</label>
+                            <input asp-for="Employee.CreateBy" class="form-control" id="CreateBy" />
+                            <span asp-validation-for="Employee.CreateBy" class="text-danger"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnCreate">Tạo</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#btnCreate').click(function() {
+        var employeeData = {
+            Code: $('#Code').val(),
+            Name: $('#Name').val(),
+            DepartmentId: $('#createDepartmentId').val(),
+            PositionId: $('#PositionId').val(),
+            DateOfBirth: $('#DateOfBirth').val(),
+            Gender: $('#Gender').val(),
+            PhoneNumber: $('#PhoneNumber').val(),
+            Email: $('#Email').val(),
+            Address: $('#Address').val(),
+            Identifier: $('#Identifier').val(),
+            CreateBy: $('#CreateBy').val(),
+        }
+        console.log(employeeData);
+
+        $.ajax({
+            url: '/Employee/Create',
+            type: 'POST',
+            data: employeeData,
+            success: function(res) {
+                if(res.success) {
+                    toastr.success(res.message);
+                    $('#createModal').modal('hide');
+                    location.reload();
+                }
+                else {
+                    $('#createMessage').html('<div class="alert alert-danger">' + res.message + '</div>');
+                }
+            },
+            error: function(res) {
+                $('#createMessage').html('<div class="alert alert-danger">' + 'Đã xảy ra lỗi!!!' + '</div>');
+                console.log(res);
+            }
+        })
+    })
+</script>
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}

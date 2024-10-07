@@ -14,9 +14,11 @@ namespace HRM.Models
         public string Gender { get; set; }
         
         [Required(ErrorMessage = "PhoneNumber is required")]
+        [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Address is required")]
@@ -32,5 +34,7 @@ namespace HRM.Models
         [Required(ErrorMessage = "Position is required")]
         public int PositionId { get; set; }
         public Position? Position { get; set; }
+
+        public ICollection<EmpSalary>? EmpSalarys { get; set; }
     }
 }

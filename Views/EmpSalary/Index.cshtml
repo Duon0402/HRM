@@ -1,0 +1,58 @@
+﻿@model HRM.Data.ViewModels.EmpSalaryVM;
+
+@{
+    ViewData["Title"] = "Salary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Danh sách lương nhân viên</h1>
+<button type="button" class="btn btn-success mt-3" data-toggle="modal" onclick="openAddOrEditModal()" 
+    data-target="#addOrEditModal">
+    Thêm mới
+</button>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr class="table-secondary text-center">
+            <th scope="col">Tên nhân viên</th>
+            <th scope="col">Lương</th>
+            <th scope="col">Ngày bắt đầu</th>
+            <th scope="col">Ngày kết thúc</th>
+            <th scope="col">Nguời tạo</th>
+            <th scope="col">Thời gian tạo</th>
+            <th scope="col">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.EmpSalaries)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modalItem => item.Employee!.Name)</td>
+                <td>@Html.DisplayFor(modalItem => item.Salary)</td>
+                <td>@Html.DisplayFor(modalItem => item.StartDate)</td>
+                <td>@Html.DisplayFor(modalItem => item.EndDate)</td>
+                <td>@Html.DisplayFor(modalItem => item.CreateBy)</td>
+                <td>@Html.DisplayFor(modalItem => item.CreateAt)</td>
+                <td class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary mx-2"
+                            onclick="openAddOrEditModal(@item.Id)"
+                            data-toggle="modal"
+                            data-target="#addOrEditModal">
+                        Chỉnh sửa
+                    </button>
+                    <button type="button" class="btn btn-danger mx-2"
+                            onclick="openDeleteModal(@item.Id);"
+                            data-toggle="modal"
+                            data-target="#deleteModal">
+                        Xóa
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    await Html.RenderPartialAsync("AddOrEdit", Model.EmpSalary);
+    await Html.RenderPartialAsync("Delete", Model.EmpSalary);
+}

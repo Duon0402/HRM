@@ -10,6 +10,7 @@ namespace HRM.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<EmpSalary> EmpSalaries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,11 @@ namespace HRM.Data
                 .HasOne(p => p.Position)
                 .WithMany(e => e.Employees)
                 .HasForeignKey(p => p.PositionId);
+
+            modelBuilder.Entity<Employee>()
+                .HasMany(s => s.EmpSalarys)
+                .WithOne(e => e.Employee)
+                .HasForeignKey(e => e.EmployeeId);
         }
     }
 }

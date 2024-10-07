@@ -12,6 +12,7 @@ namespace HRM.Configurations
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IPositionService, PositionService>();
+            services.AddScoped<IEmpSalaryService, EmpSalaryService>();
 
             services.AddDbContext<DataContext>(options =>
             {

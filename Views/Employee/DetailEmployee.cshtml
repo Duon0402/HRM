@@ -90,12 +90,28 @@
 </div>
 <script>
     function openDetailModal(id, code, name, departmentId, positionId, dateOfBirth, gender, phoneNumber, email, address, identifier, createBy, createAt) {
+        // var dateOfBirth = '2/4/2002 12:00:00 AM';
+        var parts = dateOfBirth.split(" ");
+
+        // Lấy phần ngày từ chuỗi
+        var datePart = parts[0];
+        var timePart = parts[1] + " " + parts[2]; // Nếu bạn cần phần thời gian
+        // Tạo đối tượng Date từ phần ngày
+        var dob = new Date(datePart);
+
+        // Format lại ngày thành yyyy-MM-dd để phù hợp với input[type=date]
+        var formattedDate = dob.getFullYear() + '-' +
+            (dob.getMonth() + 1).toString().padStart(2, '0') + '-' +
+            dob.getDate().toString().padStart(2, '0');
+
+        console.log("Ngày định dạng yyyy-MM-dd:", formattedDate);
+
         $('#detailId').val(id)
         $('#detailCode').val(code)
         $('#detailName').val(name)
         $('#detailDepartmentId').val(departmentId)
         $('#detailPositionId').val(positionId)
-        $('#detailDateOfBirth').val(dateOfBirth)
+        $('#detailDateOfBirth').val(formattedDate)
         $('#detailGender').val(gender)
         $('#detailPhoneNumber').val(phoneNumber)
         $('#detailEmail').val(email)

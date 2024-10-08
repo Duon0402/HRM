@@ -1,4 +1,4 @@
-using HRM.Configurations;
+using HRM.Data.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +21,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

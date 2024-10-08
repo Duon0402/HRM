@@ -7,10 +7,13 @@ namespace HRM.Data.Services
     public class PositionService : EntityBaseRepository<Position>, IPositionService
     {
         private readonly DataContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PositionService(DataContext context) : base(context)
+        public PositionService(DataContext context, IHttpContextAccessor httpContextAccessor)
+            : base(context, httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
     }
 }

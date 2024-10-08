@@ -72,11 +72,11 @@
                             <input asp-for="Employee.Identifier" class="form-control" id="Identifier" />
                             <span asp-validation-for="Employee.Identifier" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
+@*                         <div class="form-group">
                             <label asp-for="Employee.CreateBy" class="control-label">Người tạo</label>
                             <input asp-for="Employee.CreateBy" class="form-control" id="CreateBy" />
                             <span asp-validation-for="Employee.CreateBy" class="text-danger"></span>
-                        </div>
+                        </div> *@
                     </div>
                 </form>
             </div>
@@ -102,7 +102,7 @@
             Email: $('#Email').val(),
             Address: $('#Address').val(),
             Identifier: $('#Identifier').val(),
-            CreateBy: $('#CreateBy').val(),
+            // CreateBy: $('#CreateBy').val(),
         }
         console.log(employeeData);
 

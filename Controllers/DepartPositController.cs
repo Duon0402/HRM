@@ -1,11 +1,11 @@
-﻿using HRM.Data.Enums;
-using HRM.Data.Services.Interfaces;
-using HRM.Data.ViewModels;
+﻿using HRM.Data.Services.Interfaces;
 using HRM.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRM.Controllers
 {
+    [Authorize]
     public class DepartPositController : Controller
     {
         private readonly IDepartPositService _service;

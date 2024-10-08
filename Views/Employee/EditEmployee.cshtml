@@ -72,11 +72,11 @@
                             <input asp-for="Employee.Identifier" class="form-control" id="editIdentifier" />
                             <span asp-validation-for="Employee.Identifier" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
+@*                         <div class="form-group">
                             <label asp-for="Employee.CreateBy" class="control-label">Người tạo</label>
                             <input asp-for="Employee.CreateBy" class="form-control" id="editCreateBy" />
                             <span asp-validation-for="Employee.CreateBy" class="text-danger"></span>
-                        </div>
+                        </div> *@
                     </div>
                 </form>
             </div>
@@ -109,7 +109,7 @@
         $('#editEmail').val(email);
         $('#editAddress').val(address);
         $('#editIdentifier').val(identifier);
-        $('#editCreateBy').val(createBy);
+        // $('#editCreateBy').val(createBy);
     }
 
     $('#btnSave').click(function () {
@@ -125,7 +125,7 @@
             Email: $('#editEmail').val(),
             Address: $('#editAddress').val(),
             Identifier: $('#editIdentifier').val(),
-            CreateBy: $('#editCreateBy').val(),
+            // CreateBy: $('#editCreateBy').val(),
         };
         console.log(employeeData);
         $.ajax({

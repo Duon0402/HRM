@@ -20,11 +20,11 @@
                         <input asp-for="Name" class="form-control" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+@*                     <div class="form-group">
                         <label asp-for="CreateBy" class="control-label">Người tạo</label>
                         <input asp-for="CreateBy" class="form-control" />
                         <span asp-validation-for="CreateBy" class="text-danger"></span>
-                    </div>
+                    </div> *@
                 </form>
             </div>
             <div class="modal-footer">
@@ -41,7 +41,7 @@
             Type: "Chức vụ",
             Code: $('#Code').val(),
             Name: $('#Name').val(),
-            CreateBy: $('#CreateBy').val(),
+            // CreateBy: $('#CreateBy').val(),
         }
 
         $.ajax({

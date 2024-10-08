@@ -12,8 +12,7 @@ namespace HRM.Data.Base
         public string Code { get; set; }
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "CreateBy is required")]
-        public string CreateBy { get; set; }
+        public string? CreateBy { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = false)]
         public DateTime CreateAt { get; set; } = DateTime.Now;
 

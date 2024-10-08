@@ -2,12 +2,14 @@
 using HRM.Data.Services.Interfaces;
 using HRM.Data.ViewModels;
 using HRM.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRM.Controllers
 {
+    [Authorize]
     public class EmpSalaryController : Controller
     {
         private readonly IEmpSalaryService _service;
@@ -47,6 +49,7 @@ namespace HRM.Controllers
         [HttpPost]
         public async Task<JsonResult> Create(EmpSalary empSalary)
         {
+            empSalary.CreateBy = User.Identity.Name;
             if (!ModelState.IsValid) return Json(new { success = false, message = "Hãy nhập đủ thông tin" });
 
             if (!await _empService.CheckExits(e => e.Id == empSalary.EmployeeId))
@@ -66,6 +69,7 @@ namespace HRM.Controllers
         [HttpPost]
         public async Task<JsonResult> Edit(int id, EmpSalary empSalary)
         {
+            empSalary.CreateBy = User.Identity.Name;
             if (!await _service.CheckExits(s => s.Id == id))
                 return Json(new { success = false, message = "Không tìm thấy thông tin" });
 

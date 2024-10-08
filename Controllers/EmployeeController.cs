@@ -3,12 +3,14 @@ using HRM.Data.Services;
 using HRM.Data.Services.Interfaces;
 using HRM.Data.ViewModels;
 using HRM.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRM.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _service;
@@ -64,6 +66,7 @@ namespace HRM.Controllers
         [HttpPost]
         public async Task<JsonResult> Create(Employee employee)
         {
+            employee.CreateBy = User.Identity.Name;
             if (ModelState.IsValid)
             {
                 if (await _service.CheckExits(d => d.Code == employee.Code))
@@ -83,6 +86,7 @@ namespace HRM.Controllers
         [HttpPost]
         public async Task<JsonResult> Edit(int id, Employee employee)
         {
+            employee.CreateBy = User.Identity.Name;
             if (!await _service.CheckExits(d => d.Id == id)) return Json(new { success = false, message = "Không tìm thấy nhân sự" });
 
             if (ModelState.IsValid)

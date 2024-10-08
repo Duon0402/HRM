@@ -27,8 +27,7 @@ namespace HRM.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]
         public DateTime EndDate { get; set; }
 
-        [Required]
-        public string CreateBy { get; set; }
+        public string? CreateBy { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = false)]
         public DateTime CreateAt { get; set; } = DateTime.Now;

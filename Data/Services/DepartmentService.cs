@@ -8,7 +8,7 @@ namespace HRM.Data.Services
     {
         private readonly DataContext _context;
 
-        public DepartmentService(DataContext context) : base(context)
+        public DepartmentService(DataContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
         {
             _context = context;
         }

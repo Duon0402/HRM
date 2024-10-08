@@ -1,4 +1,5 @@
 ﻿
+using HRM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
@@ -9,13 +10,17 @@ namespace HRM.Data.Base
     public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {
         private readonly DataContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public EntityBaseRepository(DataContext context)
+        public EntityBaseRepository(DataContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task AddAsync(T entity)
         {
+            var currentUser = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+            entity.CreateBy = currentUser;
             await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
         }
@@ -58,6 +63,8 @@ namespace HRM.Data.Base
 
         public async Task UpdateAsync(int id, T entity)
         {
+            var currentUser = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+            entity.CreateBy = currentUser;
             EntityEntry entityEntry = _context.Entry<T>(entity);
             entityEntry.State = EntityState.Modified;
             await _context.SaveChangesAsync();

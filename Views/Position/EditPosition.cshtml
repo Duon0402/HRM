@@ -21,11 +21,11 @@
                         <input asp-for="Name" class="form-control" id="editName" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+@*                     <div class="form-group">
                         <label asp-for="CreateBy" class="control-label">Người tạo</label>
                         <input asp-for="CreateBy" class="form-control" id="editCreateBy" />
                         <span asp-validation-for="CreateBy" class="text-danger"></span>
-                    </div>
+                    </div> *@
                 </form>
             </div>
             <div class="modal-footer">
@@ -41,7 +41,7 @@
         $('#editModal #editId').val(id);
         $('#editModal #editCode').val(code);
         $('#editModal #editName').val(name);
-        $('#editModal #editCreateBy').val(createBy);
+        // $('#editModal #editCreateBy').val(createBy);
         $('#editModal').modal('show');
     }
     $('#btnSave').click(function () {
@@ -50,7 +50,7 @@
             Type: "Chức vụ",
             Code: $('#editModal #editCode').val(),
             Name: $('#editModal #editName').val(),
-            CreateBy: $('#editModal #editCreateBy').val(),
+            // CreateBy: $('#editModal #editCreateBy').val(),
         };
         $.ajax({
             url: '/DepartPosit/Edit/' + departmentData.Id,

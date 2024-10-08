@@ -36,12 +36,11 @@
                         <span asp-validation-for="EndDate" class="text-danger"></span>
                     </div>
 
-
-                    <div class="form-group">
+@*                     <div class="form-group">
                         <label asp-for="CreateBy" class="control-label">Người tạo</label>
                         <input asp-for="CreateBy" class="form-control" id="createBy" />
                         <span asp-validation-for="CreateBy" class="text-danger"></span>
-                    </div>
+                    </div> *@
                 </form>
             </div>
             <div class="modal-footer">
@@ -59,7 +58,7 @@
             $('#id').val('');
             $('#empId').val('');
             $('#salary').val('');
-            $('#createBy').val('');
+            // $('#createBy').val('');
             $('#startDate').val('');
             $('#endDate').val('');
             $('#addOrEditModal').modal('show');
@@ -81,7 +80,7 @@
                         let endDate = new Date(res.data.endDate);
                         endDate.setHours(endDate.getHours() + 7);
                         $('#endDate').val(endDate.toISOString().split('T')[0]);
-                        $('#createBy').val(res.data.createBy);
+                        // $('#createBy').val(res.data.createBy);
                         $('#message').html('');
                         $('#addOrEditModal').modal('show');
                     }
@@ -116,7 +115,7 @@
             Salary: $('#salary').val(),
             StartDate: $('#startDate').val(),
             EndDate: $('#endDate').val(),
-            CreateBy: $('#createBy').val()
+            // CreateBy: $('#createBy').val()
         };
 
         $.ajax({
@@ -145,7 +144,7 @@
             Salary: $('#salary').val(),
             StartDate: $('#startDate').val(),
             EndDate: $('#endDate').val(),
-            CreateBy: $('#createBy').val()
+            // CreateBy: $('#createBy').val()
         };
 
         $.ajax({

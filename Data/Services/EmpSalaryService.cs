@@ -10,10 +10,12 @@ namespace HRM.Data.Services
     public class EmpSalaryService : EntityBaseRepository<EmpSalary>, IEmpSalaryService
     {
         private readonly DataContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public EmpSalaryService(DataContext context) : base(context)
+        public EmpSalaryService(DataContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<bool> ValidateDate(EmpSalary empSalary)

@@ -14,7 +14,7 @@ namespace HRM.Controllers
         private readonly IEmployeeService _empService;
         private readonly DataContext _context;
 
-        public EmpSalaryController(IEmpSalaryService service, IEmployeeService empService, 
+        public EmpSalaryController(IEmpSalaryService service, IEmployeeService empService,
             DataContext context)
         {
             _service = service;

@@ -15,16 +15,16 @@ namespace HRM.Data.Services
             _context = context;
         }
 
-        async Task<bool> IEmpSalaryService.ValidateDate(EmpSalary empSalary)
+        public async Task<bool> ValidateDate(EmpSalary empSalary)
         {
-            if (empSalary.StartDate >= empSalary.EndDate)
+            if (empSalary.StartDate > empSalary.EndDate)
             {
                 return false;
             }
 
             var overlappingTimeRange = await _context.EmpSalaries
                 .Where(r => r.EmployeeId == empSalary.EmployeeId &&
-                            empSalary.StartDate <= r.EndDate && empSalary.EndDate >= r.StartDate &&
+                            empSalary.StartDate < r.EndDate && empSalary.EndDate > r.StartDate &&
                             r.Id != empSalary.Id)
                 .ToListAsync();
 

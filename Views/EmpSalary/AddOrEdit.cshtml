@@ -26,13 +26,13 @@
 
                     <div class="form-group">
                         <label asp-for="StartDate" class="control-label">Ngày bắt đầu</label>
-                        <input asp-for="StartDate" class="form-control" type="text" id="startDate" placeholder="dd/MM/yyyy" />
+                        <input asp-for="StartDate" class="form-control" type="date" id="startDate" placeholder="dd/MM/yyyy" />
                         <span asp-validation-for="StartDate" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
                         <label asp-for="EndDate" class="control-label">Ngày kết thúc</label>
-                        <input asp-for="EndDate" class="form-control" type="text" id="endDate" placeholder="dd/MM/yyyy" />
+                        <input asp-for="EndDate" class="form-control" type="date" id="endDate" placeholder="dd/MM/yyyy" />
                         <span asp-validation-for="EndDate" class="text-danger"></span>
                     </div>
 
@@ -167,6 +167,7 @@
             }
         });
     }
+
 </script>
 @{
     await Html.RenderPartialAsync("_ValidationScriptsPartial");

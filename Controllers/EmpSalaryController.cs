@@ -1,5 +1,5 @@
 ﻿using HRM.Data;
-using HRM.Data.Services;
+using HRM.Data.Services.Interfaces;
 using HRM.Data.ViewModels;
 using HRM.Models;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,7 @@
 ﻿using HRM.Data;
 using HRM.Data.Base;
 using HRM.Data.Services;
+using HRM.Data.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRM.Configurations
@@ -13,6 +14,7 @@ namespace HRM.Configurations
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<IEmpSalaryService, EmpSalaryService>();
+            services.AddScoped<IDepartPositService, DepartPositService>();
 
             services.AddDbContext<DataContext>(options =>
             {

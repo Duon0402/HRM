@@ -1,4 +1,4 @@
-﻿using HRM.Data.Services;
+﻿using HRM.Data.Services.Interfaces;
 using HRM.Data.ViewModels;
 using HRM.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,16 +8,19 @@ namespace HRM.Controllers
     public class PositionController : Controller
     {
         private readonly IPositionService _service;
+        private readonly IDepartPositService _departPositService;
 
-        public PositionController(IPositionService service)
+        public PositionController(IPositionService service, IDepartPositService departPositService)
         {
             _service = service;
+            _departPositService = departPositService;
         }
         public async Task<IActionResult> Index()
         {
+            var data = await _departPositService.GetAllAsync();
             var results = new PositionVM()
             {
-                Positions = await _service.GetAllAsync()
+                Positions = data.Where(x => x.Type == "Chức vụ")
             };
             return View("Index", results);
         }

@@ -6,11 +6,11 @@ namespace HRM.Data.ViewModels
     {
         public DepartmentVM()
         {
-            Department = new Department();
-            Departments = new List<Department>();
+            Department = new DepartmentPosition();
+            Departments = new List<DepartmentPosition>();
         }
 
-        public Department Department { get; set; }
-        public IEnumerable<Department> Departments { get; set; }
+        public DepartmentPosition Department { get; set; }
+        public IEnumerable<DepartmentPosition> Departments { get; set; }
     }
 }

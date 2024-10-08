@@ -1,4 +1,5 @@
 ﻿using HRM.Data.Services;
+using HRM.Data.Services.Interfaces;
 using HRM.Data.ViewModels;
 using HRM.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,17 +9,20 @@ namespace HRM.Controllers
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService _service;
+        private readonly IDepartPositService _departPositService;
 
-        public DepartmentController(IDepartmentService service)
+        public DepartmentController(IDepartmentService service, IDepartPositService departPositService)
         {
             _service = service;
+            _departPositService = departPositService;
         }
 
         public async Task<IActionResult> Index()
         {
+            var data = await _departPositService.GetAllAsync();
             var departRs = new DepartmentVM()
             {
-                Departments = await _service.GetAllAsync()
+                Departments = data.Where(x => x.Type == "Phòng ban")
             };
             return View("Index", departRs);
         }

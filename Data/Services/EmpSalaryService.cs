@@ -1,4 +1,5 @@
 ﻿using HRM.Data.Base;
+using HRM.Data.Services.Interfaces;
 using HRM.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Json;

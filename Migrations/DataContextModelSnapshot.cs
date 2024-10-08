@@ -22,7 +22,7 @@ namespace HRM.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HRM.Models.Department", b =>
+            modelBuilder.Entity("HRM.Models.DepartmentPosition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,9 +51,13 @@ namespace HRM.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("DepartmentPositions");
                 });
 
             modelBuilder.Entity("HRM.Models.Employee", b =>
@@ -116,10 +120,6 @@ namespace HRM.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("PositionId");
-
                     b.ToTable("Employees");
                 });
 
@@ -163,59 +163,6 @@ namespace HRM.Migrations
                     b.ToTable("EmpSalaries");
                 });
 
-            modelBuilder.Entity("HRM.Models.Position", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Positions");
-                });
-
-            modelBuilder.Entity("HRM.Models.Employee", b =>
-                {
-                    b.HasOne("HRM.Models.Department", "Department")
-                        .WithMany("Employees")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HRM.Models.Position", "Position")
-                        .WithMany("Employees")
-                        .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("Position");
-                });
-
             modelBuilder.Entity("HRM.Models.EmpSalary", b =>
                 {
                     b.HasOne("HRM.Models.Employee", "Employee")
@@ -227,19 +174,9 @@ namespace HRM.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("HRM.Models.Department", b =>
-                {
-                    b.Navigation("Employees");
-                });
-
             modelBuilder.Entity("HRM.Models.Employee", b =>
                 {
                     b.Navigation("EmpSalarys");
-                });
-
-            modelBuilder.Entity("HRM.Models.Position", b =>
-                {
-                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

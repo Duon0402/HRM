@@ -4,11 +4,11 @@ using HRM.Models;
 
 namespace HRM.Data.Services
 {
-    public class DepartmentService : EntityBaseRepository<Department>, IDepartmentService
+    public class DepartPositService : EntityBaseRepository<DepartmentPosition>, IDepartPositService
     {
         private readonly DataContext _context;
 
-        public DepartmentService(DataContext context) : base(context)
+        public DepartPositService(DataContext context) : base(context)
         {
             _context = context;
         }

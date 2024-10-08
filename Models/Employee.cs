@@ -29,16 +29,12 @@ namespace HRM.Models
 
         [Required(ErrorMessage = "Department is required")]
         public int DepartmentId { get; set; }
-        public Department? Department { get; set; }
+        //public Department? Department { get; set; }
 
         [Required(ErrorMessage = "Position is required")]
         public int PositionId { get; set; }
-        public Position? Position { get; set; }
+        //public Position? Position { get; set; }
 
         public ICollection<EmpSalary>? EmpSalarys { get; set; }
-
-        [Required]
-        public int DepartPositId { get; set; }
-        public DepartmentPosition? DepartmentPosition { get; set; }
     }
 }

@@ -6,10 +6,10 @@ namespace HRM.Data.ViewModels
     {
         public PositionVM()
         {
-            Position = new Position();
-            Positions = new List<Position>();
+            Position = new DepartmentPosition();
+            Positions = new List<DepartmentPosition>();
         }
-        public Position Position { get; set; }
-        public IEnumerable<Position> Positions { get; set; }
+        public DepartmentPosition Position { get; set; }
+        public IEnumerable<DepartmentPosition> Positions { get; set; }
     }
 }

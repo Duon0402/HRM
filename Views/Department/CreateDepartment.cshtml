@@ -1,4 +1,4 @@
-﻿@model Department
+﻿@model DepartmentPosition
 
 <div class="modal fade" id="createModal" role="dialog" aria-labelledby="createModalLabel">
     <div class="modal-dialog" role="document">
@@ -38,13 +38,14 @@
 <script>
     $('#btnCreate').click(function() {
         var departementData = {
+            Type: "Phòng ban",
             Code: $('#Code').val(),
             Name: $('#Name').val(),
             CreateBy: $('#CreateBy').val(),
         }
 
         $.ajax({
-            url: '/Department/Create',
+            url: '/DepartPosit/Create',
             type: 'POST',
             data: departementData,
             success: function(res) {

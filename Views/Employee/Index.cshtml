@@ -59,8 +59,8 @@
             <tr>
                 <td>@Html.DisplayFor(modalItem => item.Code)</td>
                 <td>@Html.DisplayFor(modalItem => item.Name)</td>
-                <td>@Html.DisplayFor(modalItem => item.Department!.Name)</td>
-                <td>@Html.DisplayFor(modalItem => item.Position!.Name)</td>
+                <td>@Model.Departments.FirstOrDefault(x => x.Id == item.DepartmentId)?.Name</td>
+                <td>@Model.Positions.FirstOrDefault(x => x.Id == item.PositionId)?.Name</td>
                 <td>@Html.DisplayFor(modalItem => item.DateOfBirth)</td>
                 <td>@Html.DisplayFor(modalItem => item.Gender)</td>
                 <td>@Html.DisplayFor(modalItem => item.PhoneNumber)</td>

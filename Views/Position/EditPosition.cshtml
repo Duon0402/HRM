@@ -1,4 +1,4 @@
-﻿@model Position
+﻿@model DepartmentPosition
 
 <div class="modal fade" id="editModal" role="dialog" aria-labelledby="editModalLabel">
     <div class="modal-dialog" role="document">
@@ -47,12 +47,13 @@
     $('#btnSave').click(function () {
         var departmentData = {
             Id: $('#editModal #editId').val(),
+            Type: "Chức vụ",
             Code: $('#editModal #editCode').val(),
             Name: $('#editModal #editName').val(),
             CreateBy: $('#editModal #editCreateBy').val(),
         };
         $.ajax({
-            url: '/Position/Edit/' + departmentData.Id,
+            url: '/DepartPosit/Edit/' + departmentData.Id,
             type: 'POST',
             data: departmentData,
             success: function (res) {

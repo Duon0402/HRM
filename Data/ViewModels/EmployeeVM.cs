@@ -8,12 +8,12 @@ namespace HRM.Data.ViewModels
         {
             Employee = new Employee();
             Employees = new List<Employee>();
-            Departments = new List<Department>();
-            Positions = new List<Position>();
+            Departments = new List<DepartmentPosition>();
+            Positions = new List<DepartmentPosition>();
         }
         public Employee Employee { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
-        public IEnumerable<Department> Departments { get; set; }
-        public IEnumerable<Position> Positions { get; set; }
+        public IEnumerable<DepartmentPosition> Departments { get; set; }
+        public IEnumerable<DepartmentPosition> Positions { get; set; }
     }
 }

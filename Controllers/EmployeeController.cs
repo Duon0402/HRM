@@ -1,5 +1,6 @@
 ﻿using HRM.Data;
 using HRM.Data.Services;
+using HRM.Data.Services.Interfaces;
 using HRM.Data.ViewModels;
 using HRM.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -12,25 +13,21 @@ namespace HRM.Controllers
     {
         private readonly IEmployeeService _service;
         private readonly DataContext _context;
-        private readonly IDepartmentService _departmentService;
-        private readonly IPositionService _positionService;
+        private readonly IDepartPositService _departPositService;
 
         public EmployeeController(IEmployeeService service, DataContext context,
-            IDepartmentService departmentService, IPositionService positionService)
+            IDepartPositService departPositService)
         {
             _service = service;
             _context = context;
-            _departmentService = departmentService;
-            _positionService = positionService;
+            _departPositService = departPositService;
         }
         public async Task<IActionResult> Index(int? DepartmentId, string? Name)
         {
-            ViewData["DepartmentName"] = new SelectList(_context.Departments.Where(x => !x.IsDeleted), "Id", "Name");
-            ViewData["PositionName"] = new SelectList(_context.Positions.Where(x => !x.IsDeleted), "Id", "Name");
+            ViewData["DepartmentName"] = new SelectList(_context.DepartmentPositions.Where(x => !x.IsDeleted && x.Type == "Phòng ban"), "Id", "Name");
+            ViewData["PositionName"] = new SelectList(_context.DepartmentPositions.Where(x => !x.IsDeleted && x.Type == "Chức vụ"), "Id", "Name");
 
             var query = _context.Employees
-                .Include(e => e.Department)
-                .Include(e => e.Position)
                 .Where(x => !x.IsDeleted)
                 .AsQueryable();
 
@@ -38,7 +35,7 @@ namespace HRM.Controllers
             {
 
                 query = query.Where(d => d.DepartmentId == DepartmentId.Value);
-                var department = _context.Departments.Find(DepartmentId);
+                var department = _context.DepartmentPositions.Find(DepartmentId);
                 ViewBag.SelectedDepart = new
                 {
                     DepartmentId,
@@ -51,12 +48,13 @@ namespace HRM.Controllers
                 query = query.Where(d => d.Name.Contains(Name));
                 ViewBag.EmployeeName = Name;
             }
+            var data = await _departPositService.GetAllAsync();
 
             var results = new EmployeeVM()
             {
                 Employees = await query.ToListAsync(),
-                Departments = await _departmentService.GetAllAsync(),
-                Positions = await _positionService.GetAllAsync(),
+                Departments = data.Where(x => x.Type == "Phòng ban"),
+                Positions = data.Where(x => x.Type == "Chức vụ")
             };
 
             return View(results);

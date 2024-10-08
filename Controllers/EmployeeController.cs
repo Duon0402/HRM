@@ -25,12 +25,13 @@ namespace HRM.Controllers
         }
         public async Task<IActionResult> Index(int? DepartmentId, string? Name)
         {
-            ViewData["DepartmentName"] = new SelectList(_context.Departments, "Id", "Name");
-            ViewData["PositionName"] = new SelectList(_context.Positions, "Id", "Name");
+            ViewData["DepartmentName"] = new SelectList(_context.Departments.Where(x => !x.IsDeleted), "Id", "Name");
+            ViewData["PositionName"] = new SelectList(_context.Positions.Where(x => !x.IsDeleted), "Id", "Name");
 
             var query = _context.Employees
                 .Include(e => e.Department)
                 .Include(e => e.Position)
+                .Where(x => !x.IsDeleted)
                 .AsQueryable();
 
             if (DepartmentId.HasValue)

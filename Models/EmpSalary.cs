@@ -32,5 +32,8 @@ namespace HRM.Models
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = false)]
         public DateTime CreateAt { get; set; } = DateTime.Now;
+
+        public bool IsDeleted { get; set; } = false;
+        public DateTime? DeleteAt { get; set; }
     }
 }

@@ -36,5 +36,9 @@ namespace HRM.Models
         public Position? Position { get; set; }
 
         public ICollection<EmpSalary>? EmpSalarys { get; set; }
+
+        [Required]
+        public int DepartPositId { get; set; }
+        public DepartmentPosition? DepartmentPosition { get; set; }
     }
 }

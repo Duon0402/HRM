@@ -23,9 +23,9 @@ namespace HRM.Controllers
         }
         public async Task<IActionResult> Index(string? empCode, DateTime? startDate, DateTime? endDate)
         {
-            ViewData["EmpCodeList"] = new SelectList(_context.Employees, "Id", "Code");
+            ViewData["EmpCodeList"] = new SelectList(_context.Employees.Where(x => !x.IsDeleted), "Id", "Code");
 
-            var query = _context.EmpSalaries.Include(e => e.Employee).AsQueryable();
+            var query = _context.EmpSalaries.Where(x => !x.IsDeleted).Include(e => e.Employee).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(empCode)) { query = query.Where(d => d.Employee!.Code == empCode); }
             if (startDate.HasValue)

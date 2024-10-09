@@ -4,10 +4,13 @@
     ViewData["Title"] = "Position";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Scripts {
+    <script src="~/js/position.js"></script>
+}
 
 <h1>Danh sách chức vụ</h1>
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#createModal">Thêm mới</button>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addOrEditModal" onclick="Position.openAddOrEditModal()">Thêm mới</button>
 
 <table class="table table-bordered mt-3">
     <thead>
@@ -29,19 +32,13 @@
                 <td>@Html.DisplayFor(modalItem => item.CreateAt)</td>
                 <td class="d-flex justify-content-center">
                     <button type="button" class="btn btn-primary mx-2"
-                            onclick="openEditModal(@item.Id, '@item.Code', '@item.Name', '@item.CreateBy')"
+                            onclick="Position.openAddOrEditModal(@item.Id)"
                             data-toggle="modal"
-                            data-target="#editModal">
+                            data-target="#addOrEditModal">
                         Chỉnh sửa
                     </button>
-                    <button type="button" class="btn btn-info mx-2" 
-                            onclick="openDetailModal(@item.Id, '@item.Code', '@item.Name', '@item.CreateBy', '@item.CreateAt');"
-                            data-toggle="modal" 
-                            data-target="#detailModal">
-                        Chi tiết
-                    </button>
                     <button type="button" class="btn btn-danger mx-2"
-                            onclick="openDeleteModal(@item.Id);"
+                            onclick="Position.openDeleteModal(@item.Id);"
                             data-toggle="modal"
                             data-target="#deleteModal"
                     >
@@ -54,8 +51,7 @@
 </table>
 
 @{
-    await Html.RenderPartialAsync("CreatePosition", Model.Position);
-    await Html.RenderPartialAsync("EditPosition", Model.Position);
-    await Html.RenderPartialAsync("DetailPosition", Model.Position);
-    await Html.RenderPartialAsync("DeletePosition", Model.Position);
+    await Html.RenderPartialAsync("AddOrEdit", Model.Position);
+    await Html.RenderPartialAsync("Delete", Model.Position);
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }

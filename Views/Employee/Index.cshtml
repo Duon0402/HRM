@@ -4,6 +4,9 @@
     ViewData["Title"] = "Employees";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Scripts {
+    <script src="~/js/employee.js"></script>
+}
 
 <h1>Danh sách phòng ban</h1>
 
@@ -33,7 +36,7 @@
     </div>
 </form>
 
-<button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#createModal">Thêm mới</button>
+<button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#addOrEditModal" onclick(Employee.openAddOrEditModal())>Thêm mới</button>
 
 <table class="table table-bordered mt-3">
     <thead>
@@ -71,21 +74,13 @@
                 <td>@Html.DisplayFor(modalItem => item.CreateAt)</td>
                 <td class="d-flex justify-content-center">
                     <button type="button" class="btn btn-primary"
-                            onclick="openEditModal(@item.Id,'@item.Code', '@item.Name', @item.DepartmentId, @item.PositionId, '@item.DateOfBirth',
-                                '@item.Gender', '@item.PhoneNumber', '@item.Email', '@item.Address', '@item.Identifier', '@item.CreateBy')"
+                            onclick="Employee.openAddOrEditModal(@item.Id)"
                             data-toggle="modal"
-                            data-target="#editModal">
+                            data-target="#addOrEditModal">
                         Chỉnh sửa
                     </button>
-                    <button type="button" class="btn btn-info mx-2"
-                            onclick="openDetailModal(@item.Id,'@item.Code', '@item.Name', @item.DepartmentId, @item.PositionId, '@item.DateOfBirth',
-                                '@item.Gender', '@item.PhoneNumber', '@item.Email', '@item.Address', '@item.Identifier', '@item.CreateBy', '@item.CreateAt')"
-                            data-toggle="modal"
-                            data-target="#detailModal">
-                        Chi tiết
-                    </button>
                     <button type="button" class="btn btn-danger mx-2"
-                            onclick="openDeleteModal(@item.Id);"
+                            onclick="Employee.openDeleteModal(@item.Id);"
                             data-toggle="modal"
                             data-target="#deleteModal">
                         Xóa
@@ -97,17 +92,15 @@
 </table>
 
 @{
-    await Html.RenderPartialAsync("CreateEmployee", Model);
-    await Html.RenderPartialAsync("EditEmployee", Model);
-    await Html.RenderPartialAsync("DetailEmployee", Model);
-    await Html.RenderPartialAsync("DeleteEmployee", Model.Employee);
+    await Html.RenderPartialAsync("AddOrEdit", Model);
+    await Html.RenderPartialAsync("Delete", Model.Employee);
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
 <script>
     function resetLoad() {
         document.querySelector('input[name="Name"]').value = "";
         var departmentSelect = document.getElementById("DepartmentId");
         departmentSelect.selectedIndex = 0;
-
         location.reload();
     }
 </script>

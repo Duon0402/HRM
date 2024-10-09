@@ -4,9 +4,14 @@
     ViewData["Title"] = "Department";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Scripts {
+    <script src="~/js/department.js"></script>
+}
+
 <h1>Danh sách phòng ban</h1>
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#createModal">Thêm mới</button>
+
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addOrEditModal" onclick="Department.openAddOrEditModal()">Thêm mới</button>
 
 <table class="table table-bordered mt-3">
     <thead>
@@ -28,19 +33,13 @@
                 <td>@Html.DisplayFor(modalItem => item.CreateAt)</td>
                 <td class="d-flex justify-content-center">
                     <button type="button" class="btn btn-primary mx-2"
-                            onclick="openEditModal(@item.Id, '@item.Code', '@item.Name', '@item.CreateBy')"
+                            onclick="Department.openAddOrEditModal(@item.Id)"
                             data-toggle="modal"
-                            data-target="#editModal">
+                            data-target="#addOrEditModal">
                         Chỉnh sửa
                     </button>
-                    <button type="button" class="btn btn-info mx-2" 
-                            onclick="openDetailModal(@item.Id, '@item.Code', '@item.Name', '@item.CreateBy', '@item.CreateAt');"
-                            data-toggle="modal" 
-                            data-target="#detailModal">
-                        Chi tiết
-                    </button>
                     <button type="button" class="btn btn-danger mx-2"
-                            onclick="openDeleteModal(@item.Id);"
+                            onclick="Department.openDeleteModal(@item.Id);"
                             data-toggle="modal"
                             data-target="#deleteModal"
                     >Xóa</button>
@@ -51,8 +50,7 @@
 </table>
 
 @{
-    await Html.RenderPartialAsync("CreateDepartment", Model.Department);
-    await Html.RenderPartialAsync("EditDepartment", Model.Department);
-    await Html.RenderPartialAsync("DetailDepartment", Model.Department);
-    await Html.RenderPartialAsync("DeleteDepartment", Model.Department);
+    await Html.RenderPartialAsync("AddOrEdit", Model.Department);
+    await Html.RenderPartialAsync("Delete", Model.Department);
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }

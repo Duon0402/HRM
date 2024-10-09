@@ -1,4 +1,5 @@
-﻿using HRM.Data;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HRM.Data;
 using HRM.Data.Services.Interfaces;
 using HRM.Data.ViewModels;
 using HRM.Models;
@@ -15,13 +16,15 @@ namespace HRM.Controllers
         private readonly IEmpSalaryService _service;
         private readonly IEmployeeService _empService;
         private readonly DataContext _context;
+        private readonly INotyfService _notyf;
 
         public EmpSalaryController(IEmpSalaryService service, IEmployeeService empService,
-            DataContext context)
+            DataContext context, INotyfService notyf)
         {
             _service = service;
             _empService = empService;
             _context = context;
+            _notyf = notyf;
         }
         public async Task<IActionResult> Index(string? empCode, DateTime? startDate, DateTime? endDate)
         {

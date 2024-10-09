@@ -1,4 +1,5 @@
-﻿using HRM.Data;
+﻿using AspNetCoreHero.ToastNotification;
+using HRM.Data;
 using HRM.Data.Base;
 using HRM.Data.Services;
 using HRM.Data.Services.Interfaces;
@@ -33,8 +34,8 @@ namespace HRM.Data.Configurations
                  options.Password.RequireNonAlphanumeric = true;
                  options.Password.RequiredLength = 8;
 
-                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                 options.Lockout.MaxFailedAccessAttempts = 5;
+                 //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                 //options.Lockout.MaxFailedAccessAttempts = 5;
              });
 
             // cookie config
@@ -46,6 +47,16 @@ namespace HRM.Data.Configurations
                 options.ExpireTimeSpan = TimeSpan.FromDays(7);
             });
 
+            // toastr notification config
+            services.AddNotyf(config =>
+            {
+                config.DurationInSeconds = 5;
+                config.IsDismissable = true;
+                config.Position = NotyfPosition.TopRight;
+            }
+);
+
+            // database config
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));

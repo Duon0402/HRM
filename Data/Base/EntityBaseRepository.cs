@@ -48,7 +48,7 @@ namespace HRM.Data.Base
             return await _context.Set<T>().Where(x => !x.IsDeleted).ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(params System.Linq.Expressions.Expression<Func<T, object>>[] includeProperties)
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = _context.Set<T>();
             query.Where(x => !x.IsDeleted);

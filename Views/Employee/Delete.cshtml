@@ -1,21 +1,21 @@
-﻿@model EmpSalary
+﻿@model Employee
 
 <div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="deletelModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h3 class="modal-title" id="deletelModalLabel">Xóa lương nhân viên</h3>
+                <h3 class="modal-title" id="deletelModalLabel">Xóa nhân viên</h3>
             </div>
             <div class="modal-body text-center">
                 <div id="deleteMessage" class="mt-3"></div>
                 <form id="deleteForm">
                     <input type="hidden" asp-for="Id" id="deleteId" />
-                    <p>Bạn có muốn xóa lương nhân viên này không này không?</p>
+                    <p>Bạn có muốn xóa nhân viên này không?</p>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="Salary.remove()" data-dismiss="modal">Xóa</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger" id="btnDelete" data-dismiss="modal" onclick="Employee.remove()">Xóa</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Employee.resetForm()">Đóng</button>
             </div>
         </div>
     </div>

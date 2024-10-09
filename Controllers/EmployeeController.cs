@@ -114,5 +114,17 @@ namespace HRM.Controllers
                 return Json(new { success = false, message = "Xóa không thành công" });
             }
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetById(int id)
+        {
+            var rs = await _service.GetByIdAsync(id);
+
+            if (rs == null)
+            {
+                return Json(new { success = false, message = "Không tìm thấy thông tin" });
+            }
+            return Json(new { success = true, data = rs });
+        }
     }
 }

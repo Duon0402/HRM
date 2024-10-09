@@ -1,4 +1,5 @@
-﻿using HRM.Models;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HRM.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,10 +10,12 @@ namespace HRM.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INotyfService _notyf;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INotyfService notyf)
         {
             _logger = logger;
+            _notyf = notyf;
         }
 
         public IActionResult Index()

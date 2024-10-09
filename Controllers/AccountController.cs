@@ -1,4 +1,5 @@
-﻿using HRM.Data;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HRM.Data;
 using HRM.Data.ViewModels;
 using HRM.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -13,12 +14,15 @@ namespace HRM.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly DataContext _context;
+        private readonly INotyfService _notyf;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, DataContext context)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
+            DataContext context, INotyfService notyf)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _notyf = notyf;
         }
         [AllowAnonymous]
         [HttpGet]
@@ -43,10 +47,12 @@ namespace HRM.Controllers
                     var reusult = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
                     if (reusult.Succeeded)
                     {
+                        _notyf.Success("Đăng nhập thành công", 3);
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 TempData["Error"] = "Sai tên đăng nhập hoặc mật khẩu";
+                
                 return View(loginVM);
             }
             TempData["Error"] = "Sai tên đăng nhập hoặc mật khẩu";

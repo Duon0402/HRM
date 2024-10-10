@@ -95,7 +95,7 @@ var Employee;
         var data = {
             code: $('#code').val(),
             name: $('#name').val(),
-            deparmentId: $('#deparmentId').val(),
+            departmentId: $('#departmentId').val(),
             positionId: $('#positionId').val(),
             dateOfBirth: $('#dateOfBirth').val(),
             gender: $('#gender').val(),
@@ -131,7 +131,7 @@ var Employee;
             id: $('#id').val(),
             code: $('#code').val(),
             name: $('#name').val(),
-            deparmentId: $('#deparmentId').val(),
+            departmentId: $('#departmentId').val(),
             positionId: $('#positionId').val(),
             dateOfBirth: $('#dateOfBirth').val(),
             gender: $('#gender').val(),
